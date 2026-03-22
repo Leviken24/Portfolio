@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H S Shreeja | Resume</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: #ffffff;
+      color: #111827;
+      padding: 24px;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: auto;
+    }
+
+    /* ---- HEADER ---- */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+
+    .header-info h1 {
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #0f0a1e;
+      margin-bottom: 4px;
+    }
+
+    .sub {
+      font-size: 14px;
+      color: #5b21b6;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .contact {
+      font-size: 13px;
+      color: #374151;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 14px;
+    }
+
+    .contact a {
+      color: #5b21b6;
+      text-decoration: none;
+    }
+
+    .photo {
+      width: 130px;
+      height: 155px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 2px solid #ddd6fe;
+    }
+
+    /* placeholder if no photo */
+    .photo-placeholder {
+      width: 130px;
+      height: 155px;
+      border-radius: 10px;
+      border: 2px dashed #c4b5fd;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #a78bfa;
+      font-size: 12px;
+      gap: 6px;
+      background: #f5f3ff;
+      text-align: center;
+    }
+
+    .photo-placeholder .icon { font-size: 2.2rem; }
+
+    hr {
+      border: none;
+      border-top: 1.5px solid #ede9fe;
+      margin: 16px 0;
+    }
+
+    h2 {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #5b21b6;
+      margin-bottom: 10px;
+      margin-top: 20px;
+      border-bottom: 1.5px solid #ede9fe;
+      padding-bottom: 4px;
+    }
+
+    p {
+      font-size: 13.5px;
+      line-height: 1.65;
+      margin: 5px 0;
+      color: #1f2937;
+    }
+
+    ul {
+      margin: 6px 0 0 16px;
+    }
+
+    li {
+      font-size: 13.5px;
+      margin-bottom: 6px;
+      line-height: 1.55;
+      color: #1f2937;
+    }
+
+    /* Skills Tags */
+    .skills-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .skill-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .skill-label {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #374151;
+      min-width: 130px;
+      padding-top: 3px;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .skill {
+      font-size: 12px;
+      padding: 3px 9px;
+      border-radius: 5px;
+      background: #f3f0ff;
+      color: #5b21b6;
+      border: 1px solid #ddd6fe;
+      font-weight: 500;
+    }
+
+    /* Projects */
+    .project {
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: #fafafa;
+      border-left: 3px solid #a78bfa;
+      margin-bottom: 12px;
+    }
+
+    .project-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .muted {
+      color: #6b7280;
+      font-size: 12px;
+      margin: 2px 0 6px;
+    }
+
+    .project a {
+      color: #5b21b6;
+      font-size: 12.5px;
+    }
+
+    /* Cert items */
+    .cert-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .cert-item {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 5px;
+      background: #fdf4ff;
+      border: 1px solid #e9d5ff;
+      color: #7c3aed;
+      font-weight: 500;
+    }
+
+    @media (max-width: 600px) {
+      .header { flex-direction: column; align-items: center; text-align: center; }
+      .contact { justify-content: center; }
+      .skill-row { flex-direction: column; }
+      .skill-label { min-width: unset; }
+    }
+
+    @media print {
+      body { padding: 0; }
+      .container { max-width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- Header -->
+    <div class="header">
+      <div class="header-info">
+        <h1>H S Shreeja</h1>
+        <div class="sub">B.Tech – Computer Science &amp; Engineering | Cybersecurity Enthusiast</div>
+        <div class="contact">
+          <span>📍 Bangalore, India</span>
+          <span>📞 +91 9XXXXXXXXX</span>
+          <span>📧 <a href="mailto:shreeja@email.com">shreeja@email.com</a></span>
+          <span>🔗 <a href="https://github.com/Leviken24" target="_blank">github.com/Leviken24</a></span>
+          <span>💼 <a href="https://linkedin.com/in/shreeja" target="_blank">LinkedIn</a></span>
+        </div>
+      </div>
+
+      <img src="pic.jpeg" alt="H S Shreeja" class="photo">
+    </div>
+
+    <hr>
+
+    <!-- Profile -->
+    <h2>Profile</h2>
+    <p>
+      Computer Science undergraduate at Jyothi Institute of Technology, Tataguni, Bangalore with a strong interest in Cybersecurity. Hands-on experience
+      building secure web applications, conducting vulnerability assessments, automating Linux system hardening, and
+      participating in Capture The Flag (CTF) competitions. Passionate about writing clean code that is both functional and
+      resilient against modern threats.
+    </p>
+
+    <!-- Technical Skills -->
+    <h2>Technical Skills</h2>
+    <div class="skills-section">
+
+      <div class="skill-row">
+        <span class="skill-label">Languages</span>
+        <div class="skills">
+          <div class="skill">Python</div>
+          <div class="skill">Java</div>
+          <div class="skill">JavaScript</div>
+          <div class="skill">C / C++</div>
+          <div class="skill">Bash / Shell</div>
+          <div class="skill">SQL</div>
+          <div class="skill">TypeScript</div>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <span class="skill-label">Web Development</span>
+        <div class="skills">
+          <div class="skill">HTML / CSS</div>
+          <div class="skill">React</div>
+          <div class="skill">Node.js</div>
+          <div class="skill">Express</div>
+          <div class="skill">FastAPI</div>
+          <div class="skill">Flask</div>
+          <div class="skill">MongoDB</div>
+          <div class="skill">MySQL</div>
+          <div class="skill">REST APIs</div>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <span class="skill-label">Cybersecurity</span>
+        <div class="skills">
+          <div class="skill">Ethical Hacking</div>
+          <div class="skill">Penetration Testing</div>
+          <div class="skill">Nmap</div>
+          <div class="skill">Wireshark</div>
+          <div class="skill">Metasploit</div>
+          <div class="skill">Burp Suite</div>
+          <div class="skill">OWASP Top 10</div>
+          <div class="skill">Cryptography</div>
+          <div class="skill">SIEM / SOC</div>
+          <div class="skill">Incident Response</div>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <span class="skill-label">Linux / Systems</span>
+        <div class="skills">
+          <div class="skill">Ubuntu / Kali Linux</div>
+          <div class="skill">Shell Scripting</div>
+          <div class="skill">SSH / SCP</div>
+          <div class="skill">Cron Jobs</div>
+          <div class="skill">iptables / UFW</div>
+          <div class="skill">Fail2Ban</div>
+          <div class="skill">Systemd</div>
+          <div class="skill">File Permissions</div>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <span class="skill-label">Networking</span>
+        <div class="skills">
+          <div class="skill">TCP/IP</div>
+          <div class="skill">DNS</div>
+          <div class="skill">HTTP/HTTPS</div>
+          <div class="skill">Firewalls</div>
+          <div class="skill">Subnetting</div>
+          <div class="skill">VPN</div>
+          <div class="skill">Scapy</div>
+          <div class="skill">Packet Analysis</div>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <span class="skill-label">Cloud / DevOps</span>
+        <div class="skills">
+          <div class="skill">AWS (EC2, S3, IAM)</div>
+          <div class="skill">Docker</div>
+          <div class="skill">GitHub Actions</div>
+          <div class="skill">CI/CD</div>
+          <div class="skill">Nginx</div>
+          <div class="skill">Vercel / Railway</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Projects -->
+    <h2>Projects</h2>
+
+    <div class="project">
+      <div class="project-title">SecureVault — Encrypted Password Manager</div>
+      <p class="muted">Python · AES-256 · SQLite · Cryptography · Bcrypt · CLI</p>
+      <ul>
+        <li>Designed a CLI-based password manager using AES-256-GCM encryption with a master password hashed via bcrypt.</li>
+        <li>Built secure credential storage in SQLite with an encrypted vault file; implemented clipboard-safe retrieval to prevent plaintext leakage.</li>
+        <li>Added multi-vault support and export functionality with per-entry IV rotation for forward-secrecy compliance.</li>
+      </ul>
+    </div>
+
+    <div class="project">
+      <div class="project-title">NetScan Pro — Network Vulnerability Scanner</div>
+      <p class="muted">Python · Scapy · Nmap · NVD CVE API · Flask</p>
+      <ul>
+        <li>Built an automated network scanner that discovers live hosts, fingerprints OS/services, and cross-references open ports against the NIST NVD CVE database.</li>
+        <li>Integrated the NVD REST API to fetch real-time CVE advisories and severity scores (CVSS) for each detected service.</li>
+        <li>Generated structured HTML vulnerability reports for each scan session, exportable as PDF.</li>
+      </ul>
+    </div>
+
+    <div class="project">
+      <div class="project-title">LinuxHardener — CIS Benchmark Automation Toolkit</div>
+      <p class="muted">Bash · Linux · CIS Level 1 · UFW · Fail2Ban · Cron</p>
+      <ul>
+        <li>Developed a Bash automation toolkit that enforces CIS Level 1 security benchmarks on Ubuntu/Debian servers without manual intervention.</li>
+        <li>Automated: UFW firewall rules, SSH hardening (key-only auth, port change), Fail2Ban configuration, unnecessary service disabling, and package auto-patching.</li>
+        <li>Logged all changes with timestamped audit trails for compliance documentation.</li>
+      </ul>
+    </div>
+
+    <div class="project">
+      <div class="project-title">LogWatch AI — SIEM Log Anomaly Detector</div>
+      <p class="muted">Python · Gemini AI · Regex · ELK Stack · SIEM</p>
+      <ul>
+        <li>Built an LLM-powered log analysis pipeline that ingests system/web server logs, detects brute-force, privilege escalation, and anomalous patterns.</li>
+        <li>Integrated the Gemini API to generate natural-language incident summaries and ranked severity alerts for rapid SOC response.</li>
+        <li>Connected to the ELK Stack for log aggregation and visualized trends on a Kibana dashboard.</li>
+      </ul>
+    </div>
+
+    <div class="project">
+      <div class="project-title">PortBlog — Full-Stack Blog Platform</div>
+      <p class="muted">React · Node.js · MongoDB · JWT · Vercel · Railway</p>
+      <ul>
+        <li>Full-stack blog platform with Markdown editor, JWT-authenticated admin panel, and tag/category filtering.</li>
+        <li>Implemented RESTful API architecture with role-based access control; deployed frontend on Vercel and backend on Railway.</li>
+      </ul>
+    </div>
+
+    <!-- Education -->
+    <h2>Education</h2>
+    <p>
+      <b>B.Tech in Computer Science &amp; Engineering</b><br>
+      Jyothi Institute of Technology, Tataguni, Bangalore<br>
+      2024 – 2028
+    </p>
+
+    <!-- Certifications / Learning -->
+    <h2>Certifications &amp; Platforms</h2>
+    <div class="cert-grid">
+      <span class="cert-item">CompTIA Security+ (In Progress)</span>
+      <span class="cert-item">Google Cybersecurity Certificate</span>
+      <span class="cert-item">CEH (Targeting)</span>
+      <span class="cert-item">TryHackMe – Active</span>
+      <span class="cert-item">HackTheBox – Active</span>
+      <span class="cert-item">LeetCode – Regular</span>
+    </div>
+
+    <!-- Interests -->
+    <h2>Interests</h2>
+    <p>
+      Ethical Hacking &amp; CTF Competitions &nbsp;·&nbsp; Cloud Security &nbsp;·&nbsp; Linux System Administration
+      &nbsp;·&nbsp; Full-Stack Web Development &nbsp;·&nbsp; AI-Assisted Security Tools &nbsp;·&nbsp; Open Source Contribution
+    </p>
+
+  </div>
+</body>
+
+</html>
