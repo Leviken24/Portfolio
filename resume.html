@@ -343,51 +343,12 @@
     <h2>Projects</h2>
 
     <div class="project">
-      <div class="project-title">SecureVault — Encrypted Password Manager</div>
-      <p class="muted">Python · AES-256 · SQLite · Cryptography · Bcrypt · CLI</p>
+      <div class="project-title">⚡ Port Scanner + Vulnerability Reporter <a href="https://port-scanner-noqj.onrender.com/" target="_blank" style="font-size: 12px; margin-left: 5px;">[Live Demo]</a></div>
+      <p class="muted">Python 3 · Flask · SSE · Vanilla JS · Socket · Render</p>
       <ul>
-        <li>Designed a CLI-based password manager using AES-256-GCM encryption with a master password hashed via bcrypt.</li>
-        <li>Built secure credential storage in SQLite with an encrypted vault file; implemented clipboard-safe retrieval to prevent plaintext leakage.</li>
-        <li>Added multi-vault support and export functionality with per-entry IV rotation for forward-secrecy compliance.</li>
-      </ul>
-    </div>
-
-    <div class="project">
-      <div class="project-title">NetScan Pro — Network Vulnerability Scanner</div>
-      <p class="muted">Python · Scapy · Nmap · NVD CVE API · Flask</p>
-      <ul>
-        <li>Built an automated network scanner that discovers live hosts, fingerprints OS/services, and cross-references open ports against the NIST NVD CVE database.</li>
-        <li>Integrated the NVD REST API to fetch real-time CVE advisories and severity scores (CVSS) for each detected service.</li>
-        <li>Generated structured HTML vulnerability reports for each scan session, exportable as PDF.</li>
-      </ul>
-    </div>
-
-    <div class="project">
-      <div class="project-title">LinuxHardener — CIS Benchmark Automation Toolkit</div>
-      <p class="muted">Bash · Linux · CIS Level 1 · UFW · Fail2Ban · Cron</p>
-      <ul>
-        <li>Developed a Bash automation toolkit that enforces CIS Level 1 security benchmarks on Ubuntu/Debian servers without manual intervention.</li>
-        <li>Automated: UFW firewall rules, SSH hardening (key-only auth, port change), Fail2Ban configuration, unnecessary service disabling, and package auto-patching.</li>
-        <li>Logged all changes with timestamped audit trails for compliance documentation.</li>
-      </ul>
-    </div>
-
-    <div class="project">
-      <div class="project-title">LogWatch AI — SIEM Log Anomaly Detector</div>
-      <p class="muted">Python · Gemini AI · Regex · ELK Stack · SIEM</p>
-      <ul>
-        <li>Built an LLM-powered log analysis pipeline that ingests system/web server logs, detects brute-force, privilege escalation, and anomalous patterns.</li>
-        <li>Integrated the Gemini API to generate natural-language incident summaries and ranked severity alerts for rapid SOC response.</li>
-        <li>Connected to the ELK Stack for log aggregation and visualized trends on a Kibana dashboard.</li>
-      </ul>
-    </div>
-
-    <div class="project">
-      <div class="project-title">PortBlog — Full-Stack Blog Platform</div>
-      <p class="muted">React · Node.js · MongoDB · JWT · Vercel · Railway</p>
-      <ul>
-        <li>Full-stack blog platform with Markdown editor, JWT-authenticated admin panel, and tag/category filtering.</li>
-        <li>Implemented RESTful API architecture with role-based access control; deployed frontend on Vercel and backend on Railway.</li>
+        <li>Built a fast, production-ready TCP port scanner with a live hacker-themed web UI that scans open ports in real-time.</li>
+        <li>Implemented multi-threading with 200 concurrent threads, mapping open ports to service names and flagging high-risk ports with known CVE references.</li>
+        <li>Incorporated robust security features such as rate limiting, server-enforced legal disclaimers, and private IP blocking.</li>
       </ul>
     </div>
 
