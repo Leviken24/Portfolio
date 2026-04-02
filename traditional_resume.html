@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H S Shreeja | Traditional Resume</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+    :root {
+      --primary-blue: #1c5082;
+      --text-main: #222;
+      --text-muted: #444;
+      --border-line: #1c5082;
+    }
+
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.4;
+      color: var(--text-main);
+      background: #e0e0e0;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .resume-wrapper {
+      background: #fff;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 50px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .header-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 15px;
+    }
+
+    .header-content h1 {
+      color: var(--primary-blue);
+      font-size: 20pt;
+      font-weight: 700;
+      margin: 0 0 5px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .contact-line {
+      font-size: 10pt;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .contact-line a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    .photo-box {
+      width: 100px;
+      height: 125px;
+      border: 1px solid #ccc;
+      background-color: #fcfcfc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #999;
+      font-size: 8pt;
+      overflow: hidden;
+    }
+
+    .photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .section-title {
+      font-size: 11.5pt;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-transform: uppercase;
+      border-bottom: 1.5px solid var(--border-line);
+      padding-bottom: 2px;
+      margin-top: 18px;
+      margin-bottom: 8px;
+    }
+
+    .section-content {
+      font-size: 10.5pt;
+    }
+
+    .text-justify {
+      text-align: justify;
+    }
+
+    .flex-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2px;
+    }
+
+    .bold-title {
+      font-weight: 700;
+    }
+
+    .text-right {
+      text-align: right;
+      color: var(--text-muted);
+    }
+
+    .project-entry, .edu-entry {
+      margin-bottom: 10px;
+    }
+
+    ul {
+      margin: 4px 0 8px 0;
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 3px;
+    }
+
+    .skills-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10.5pt;
+    }
+
+    .skills-table td {
+      vertical-align: top;
+      padding: 3px 0;
+    }
+
+    .skills-label {
+      font-weight: 600;
+      width: 180px;
+      color: var(--text-main);
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        padding: 0;
+      }
+      .resume-wrapper {
+        margin: 0;
+        padding: 20px;
+        box-shadow: none;
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="resume-wrapper">
+    
+    <!-- HEADER -->
+    <div class="header-section">
+      <div class="header-content">
+        <h1>H S Shreeja</h1>
+        <div class="contact-line">
+          +91 8453445469 | <a href="mailto:hsshreeja3@gmail.com">hsshreeja3@gmail.com</a> | Bangalore, India
+        </div>
+        <div class="contact-line">
+          LinkedIn: <a href="https://www.linkedin.com/in/hs-shreeja-668bb130a/" target="_blank">linkedin.com/in/hs-shreeja-668bb130a</a> | GitHub: <a href="https://github.com/Leviken24" target="_blank">github.com/Leviken24</a>
+        </div>
+      </div>
+      <div class="photo-box">
+        <img src="pic.jpeg" alt="Passport Size Photo" onerror="this.style.display='none'; this.parentNode.innerHTML='Passport<br>Size Photo';">
+      </div>
+    </div>
+
+    <!-- CAREER OBJECTIVE -->
+    <div class="section-title">CAREER OBJECTIVE</div>
+    <div class="section-content text-justify">
+      Computer Science undergraduate at Jyothi Institute of Technology, Tataguni, Bangalore with a strong interest in Cybersecurity. Hands-on experience building secure web applications, conducting vulnerability assessments, automating Linux system hardening, and participating in Capture The Flag (CTF) competitions. Passionate about writing clean code that is both functional and resilient against modern threats.
+    </div>
+
+    <!-- EDUCATION -->
+    <div class="section-title">EDUCATION</div>
+    <div class="section-content edu-entry">
+      <div class="flex-row">
+        <div class="bold-title">B.Tech in Computer Science & Engineering, Jyothi Institute of Technology</div>
+        <div class="text-right">2024 - 2028</div>
+      </div>
+      <div>City: Bangalore | College Name: Jyothi Institute of Technology</div>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="section-title">SKILLS</div>
+    <div class="section-content">
+      <table class="skills-table">
+        <tr>
+          <td class="skills-label">Programming Languages:</td>
+          <td>Python, Java, JavaScript, C / C++, Bash / Shell, SQL, TypeScript, HTML / CSS</td>
+        </tr>
+        <tr>
+          <td class="skills-label">Web Technologies:</td>
+          <td>React, Node.js, Express, FastAPI, Flask, REST APIs, MongoDB, MySQL</td>
+        </tr>
+        <tr>
+          <td class="skills-label">Cybersecurity:</td>
+          <td>Ethical Hacking, Penetration Testing, Nmap, Wireshark, Metasploit, Burp Suite, OWASP Top 10, Cryptography, SIEM / SOC, Incident Response, Scapy, Packet Analysis</td>
+        </tr>
+        <tr>
+          <td class="skills-label">Linux & Systems:</td>
+          <td>Ubuntu / Kali Linux, Shell Scripting, SSH / SCP, Cron Jobs, iptables / UFW, Fail2Ban, Systemd, File Permissions</td>
+        </tr>
+        <tr>
+          <td class="skills-label">Cloud & DevOps:</td>
+          <td>AWS (EC2, S3, IAM), Docker, GitHub Actions, CI/CD, Nginx, Vercel / Railway</td>
+        </tr>
+        <tr>
+          <td class="skills-label">Networking:</td>
+          <td>TCP/IP, DNS, HTTP/HTTPS, Firewalls, Subnetting, VPN</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- ACADEMIC PROJECTS -->
+    <div class="section-title">ACADEMIC PROJECTS</div>
+    <div class="section-content project-entry">
+      <div class="flex-row">
+        <div class="bold-title">Port Scanner + Vulnerability Reporter</div>
+
+      </div>
+      <ul>
+        <li>Built a fast, production-ready TCP port scanner with a live hacker-themed web UI that scans open ports in real-time.</li>
+        <li>Implemented multi-threading with 200 concurrent threads using <b>Python 3, Flask, SSE, Vanilla JS</b>, mapping open ports to service names and flagging high-risk ports with known CVE references.</li>
+        <li>Incorporated robust security features such as rate limiting, server-enforced legal disclaimers, and private IP blocking.</li>
+      </ul>
+    </div>
+
+    <!-- CERTIFICATIONS -->
+    <div class="section-title">CERTIFICATIONS & PLATFORMS</div>
+    <div class="section-content">
+      <ul>
+        <li>CompTIA Security+ (In Progress)</li>
+        <li>Google Cybersecurity Certificate</li>
+        <li>CEH (Targeting)</li>
+      </ul>
+    </div>
+
+    <!-- ACHIEVEMENTS & EXTRACURRICULAR ACTIVITIES -->
+    <div class="section-title">EXTRACURRICULAR ACTIVITIES & INTERESTS</div>
+    <div class="section-content">
+      <ul>
+        <li><b>Interests:</b> Ethical Hacking & CTF Competitions, Cloud Security, Linux System Administration, Full-Stack Web Development, AI-Assisted Security Tools, Open Source Contribution</li>
+        <li><b>Platforms:</b> TryHackMe (Active), HackTheBox (Active), LeetCode (Regular)</li>
+      </ul>
+    </div>
+
+  </div>
+
+</body>
+</html>
