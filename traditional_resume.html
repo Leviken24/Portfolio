@@ -28,7 +28,7 @@
       background: #fff;
       max-width: 800px;
       margin: 0 auto;
-      padding: 40px 50px;
+      padding: 30px 40px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
@@ -86,8 +86,8 @@
       text-transform: uppercase;
       border-bottom: 1.5px solid var(--border-line);
       padding-bottom: 2px;
-      margin-top: 18px;
-      margin-bottom: 8px;
+      margin-top: 14px;
+      margin-bottom: 6px;
     }
 
     .section-content {
@@ -114,16 +114,16 @@
     }
 
     .project-entry, .edu-entry {
-      margin-bottom: 10px;
+      margin-bottom: 6px;
     }
 
     ul {
-      margin: 4px 0 8px 0;
+      margin: 4px 0 6px 0;
       padding-left: 20px;
     }
 
     li {
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
 
     .skills-table {
@@ -226,15 +226,24 @@
 
     <!-- ACADEMIC PROJECTS -->
     <div class="section-title">ACADEMIC PROJECTS</div>
+
+    <div class="section-content project-entry">
+      <div class="flex-row">
+        <div class="bold-title">PhishGuard AI</div>
+      </div>
+      <ul>
+        <li>Built an explainable phishing detection tool analyzing URLs and emails using feature extraction and <b>Google Gemini API</b>.</li>
+        <li>Extracted threat signals to provide an AI-driven verdict, confidence score, and insights using <b>Python, FastAPI, and React</b>.</li>
+      </ul>
+    </div>
+
     <div class="section-content project-entry">
       <div class="flex-row">
         <div class="bold-title">Port Scanner + Vulnerability Reporter</div>
-
       </div>
       <ul>
         <li>Built a fast, production-ready TCP port scanner with a live hacker-themed web UI that scans open ports in real-time.</li>
-        <li>Implemented multi-threading with 200 concurrent threads using <b>Python 3, Flask, SSE, Vanilla JS</b>, mapping open ports to service names and flagging high-risk ports with known CVE references.</li>
-        <li>Incorporated robust security features such as rate limiting, server-enforced legal disclaimers, and private IP blocking.</li>
+        <li>Implemented multi-threading with 200 concurrent threads using <b>Python 3, Flask, SSE, Vanilla JS</b>, flagging high-risk ports with CVEs.</li>
       </ul>
     </div>
 
