@@ -20,8 +20,11 @@ export const DomainDeck: React.FC = () => {
     <section
       id="specializations"
       ref={sectionRef as React.RefObject<HTMLElement>}
-      className="py-24 px-4 sm:px-6 lg:px-8 border-t border-cream-300/15 relative overflow-hidden"
+      className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
     >
+      {/* Expanding Laser Divider */}
+      <div className="laser-divider max-w-7xl mx-auto mb-16" />
+
       {/* Subtle background glow */}
       <div className="absolute inset-0 pointer-events-none -z-10">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-burgundy-950/40 rounded-full blur-[180px]" />
@@ -36,16 +39,18 @@ export const DomainDeck: React.FC = () => {
               <span className="text-burgundy-500 font-bold">[01]</span>
               <span>Technical Domains</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-serif font-black text-cream-100 uppercase tracking-tight">
-              Core Specializations
-            </h2>
+            <div className="reveal-mask">
+              <h2 className="reveal-mask-inner text-3xl sm:text-5xl font-serif font-black text-cream-100 uppercase tracking-tight">
+                Core Specializations
+              </h2>
+            </div>
           </div>
           <p className="max-w-sm text-xs sm:text-sm font-sans text-cream-400 leading-relaxed">
             Five interconnected disciplines — from silicon to cloud, from firmware to frontier AI.
           </p>
         </div>
 
-        {/* 5 Domain Cards */}
+        {/* 5 Domain Cards with 3D Entrance */}
         <div className="mt-10 sr-stagger grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {DOMAIN_SPECIALIZATIONS.map((domain, idx) => {
             const Icon = iconMap[idx] || ShieldCheck;
@@ -55,7 +60,7 @@ export const DomainDeck: React.FC = () => {
               <div
                 key={domain.id}
                 onMouseEnter={() => soundEngine.playPop(750 + idx * 50)}
-                className={`sr-hidden p-6 rounded-2xl velvet-card flex flex-col justify-between group domain-card-compact ${
+                className={`sr-card p-6 rounded-2xl velvet-card flex flex-col justify-between group domain-card-compact ${
                   idx === 4 ? 'md:col-span-2 lg:col-span-1' : ''
                 }`}
               >
@@ -63,7 +68,7 @@ export const DomainDeck: React.FC = () => {
                 <div>
                   <div className="flex items-start justify-between pb-4 border-b border-cream-300/10">
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-xl bg-burgundy-900/90 border border-cream-300/15 flex items-center justify-center text-cream-200 group-hover:scale-110 transition-transform">
+                      <div className="w-9 h-9 rounded-xl bg-burgundy-900/90 border border-cream-300/15 flex items-center justify-center text-cream-200 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
                         <Icon className="w-4.5 h-4.5" />
                       </div>
                       <span className={`font-serif text-base font-bold ${accent}`}>{domain.num}</span>

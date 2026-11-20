@@ -3,10 +3,12 @@ import { ArrowUpRight, ShieldCheck, X, Cpu, Layers, ExternalLink, Activity, Spar
 import { PROJECTS_DOSSIER, Project } from '../data/portfolioData';
 import { GithubIcon } from './Icons';
 import { soundEngine } from '../utils/audio';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export const ProjectsDeck: React.FC = () => {
   const [hoveredProjectId, setHoveredProjectId] = useState<string | null>(null);
   const [activeModalProject, setActiveModalProject] = useState<Project | null>(null);
+  const sectionRef = useScrollReveal(0.08);
 
   const handleRowHover = (id: string) => {
     soundEngine.playPop(800);
@@ -69,19 +71,24 @@ export const ProjectsDeck: React.FC = () => {
   };
 
   return (
-    <section id="dossiers" className="py-24 px-4 sm:px-6 lg:px-8 border-t border-cream-300/15 relative">
+    <section id="dossiers" ref={sectionRef as React.RefObject<HTMLElement>} className="py-24 px-4 sm:px-6 lg:px-8 relative">
+      {/* Expanding Laser Divider */}
+      <div className="laser-divider max-w-7xl mx-auto mb-16" />
+
       <div className="max-w-7xl mx-auto">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b border-cream-300/15">
+        <div className="sr-hidden flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b border-cream-300/15">
           <div>
             <div className="flex items-center gap-2 font-sans text-xs tracking-widest uppercase text-cream-400 mb-2">
               <span className="text-burgundy-500 font-bold">[02]</span>
               <span>SELECTED WORKS & CASE FILES</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl md:text-6xl font-serif font-black text-cream-100 uppercase tracking-tight">
-              CASE FILES
-            </h2>
+            <div className="reveal-mask">
+              <h2 className="reveal-mask-inner text-3xl sm:text-5xl md:text-6xl font-serif font-black text-cream-100 uppercase tracking-tight">
+                CASE FILES
+              </h2>
+            </div>
           </div>
 
           <div className="max-w-md text-xs sm:text-sm font-sans text-cream-400 leading-relaxed">
@@ -91,8 +98,8 @@ export const ProjectsDeck: React.FC = () => {
           </div>
         </div>
 
-        {/* Interactive CMS List Row Repeater (Inspired by Rina Grim / Wix Studio CMS Repeater vc7fKrfbu7c) */}
-        <div className="divide-y divide-cream-300/15 border-b border-cream-300/15">
+        {/* Interactive CMS List Row Repeater */}
+        <div className="sr-stagger divide-y divide-cream-300/15 border-b border-cream-300/15">
           {PROJECTS_DOSSIER.map((project, idx) => {
             const isHovered = hoveredProjectId === project.id;
             const theme = getProjectTheme(project.category);
@@ -103,7 +110,7 @@ export const ProjectsDeck: React.FC = () => {
                 onMouseEnter={() => handleRowHover(project.id)}
                 onMouseLeave={handleRowLeave}
                 onClick={() => handleOpenModal(project)}
-                className="group py-6 sm:py-8 px-2 sm:px-4 cursor-pointer transition-colors duration-300 hover:bg-cream-100/[0.02] flex items-center justify-between gap-4"
+                className="sr-card group py-6 sm:py-8 px-2 sm:px-4 cursor-pointer transition-colors duration-300 hover:bg-cream-100/[0.02] flex items-center justify-between gap-4"
               >
                 {/* Left: Number + Title + Inline Expanding Card */}
                 <div className="flex items-center gap-4 sm:gap-6 min-w-0 flex-1">

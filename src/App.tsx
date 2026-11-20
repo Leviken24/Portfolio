@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { OpeningPreloader } from './components/OpeningPreloader';
 import { ScrollAtmosphere } from './components/ScrollAtmosphere';
+import { ScrollProgressHUD } from './components/ScrollProgressHUD';
 import { FloatingNav } from './components/FloatingNav';
 import { EditorialHero } from './components/EditorialHero';
 import { DomainDeck } from './components/DomainDeck';
@@ -11,10 +12,14 @@ import { ServicesDeck } from './components/ServicesDeck';
 import { EditorialContact } from './components/EditorialContact';
 import { ArrowUp } from 'lucide-react';
 import { soundEngine } from './utils/audio';
+import { useLenis } from './hooks/useLenis';
 
 export function App() {
   const [preloaderDone, setPreloaderDone] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
+
+  // Initialize luxury inertia smooth scrolling (Lenis)
+  useLenis();
 
   useEffect(() => {
     const handleScroll = () => setShowScrollTop(window.scrollY > 400);
@@ -35,37 +40,40 @@ export function App() {
         <OpeningPreloader onComplete={() => setPreloaderDone(true)} />
       )}
 
-      {/* 01. Atmospheric depth canvas */}
+      {/* 01. Dynamic Top Scroll Beam & Editorial Telemetry HUD */}
+      <ScrollProgressHUD />
+
+      {/* 02. Atmospheric depth canvas (Jaspreet Singh Sunset-to-Night depth) */}
       <ScrollAtmosphere />
 
-      {/* 02. Ghost nav — hidden at top, reveals on scroll */}
+      {/* 03. Ghost nav — hidden at top, reveals on scroll */}
       <FloatingNav />
 
-      {/* Main Presentation */}
-      <main>
-        {/* Hero */}
+      {/* Main Presentation with Kinetic Skew on Scroll */}
+      <main className="kinetic-skew">
+        {/* 04. Monumental Editorial Hero */}
         <EditorialHero />
 
-        {/* Domains */}
+        {/* 05. Core Technical Domains with 3D Perspective Cards */}
         <DomainDeck />
 
-        {/* Case Files (Projects) */}
+        {/* 06. Classified Case Files with Hover Telemetry */}
         <ProjectsDeck />
 
-        {/* Timeline */}
+        {/* 07. Chronological Research Timeline */}
         <TimelineDeck />
 
-        {/* Capabilities / Skills */}
+        {/* 08. Capabilities & Arsenal 3D Carousel */}
         <CapabilitiesDeck />
 
-        {/* Engagements / Services */}
+        {/* 09. Structured Engagements */}
         <ServicesDeck />
 
-        {/* Contact */}
+        {/* 10. Direct Comms & Encrypted Dispatch */}
         <EditorialContact />
       </main>
 
-      {/* Back to top pill — only shows after scrolling down */}
+      {/* Back to top button */}
       <div
         className={`fixed bottom-6 right-6 z-30 transition-all duration-500 ${
           showScrollTop ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'
@@ -74,7 +82,7 @@ export function App() {
         <button
           onClick={scrollToTop}
           className="p-3 rounded-full bg-burgundy-950/90 border border-cream-300/25 hover:border-cream-300 text-cream-300 hover:text-cream-100 transition-all shadow-velvet backdrop-blur-md group"
-          title="Back to top"
+          title="Return to top"
         >
           <ArrowUp className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" />
         </button>

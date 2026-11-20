@@ -3,11 +3,13 @@ import { Mail, Phone, Copy, Check, Send, ArrowUpRight, Sparkles } from 'lucide-r
 import { PERSONAL_DOSSIER } from '../data/portfolioData';
 import { GithubIcon, LinkedinIcon } from './Icons';
 import { soundEngine } from '../utils/audio';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export const EditorialContact: React.FC = () => {
   const [copiedType, setCopiedType] = useState<string | null>(null);
   const [formState, setFormState] = useState({ name: '', email: '', message: '', topic: 'SECURITY_AUDIT' });
   const [isSent, setIsSent] = useState(false);
+  const sectionRef = useScrollReveal(0.08);
 
   const copyToClipboard = (text: string, type: string) => {
     navigator.clipboard.writeText(text);
@@ -24,7 +26,9 @@ export const EditorialContact: React.FC = () => {
   };
 
   return (
-    <footer id="contact" className="py-24 px-4 sm:px-6 lg:px-8 border-t border-cream-300/15 relative bg-obsidian-950">
+    <footer id="contact" ref={sectionRef as React.RefObject<HTMLElement>} className="py-24 px-4 sm:px-6 lg:px-8 relative bg-obsidian-950">
+      {/* Expanding Laser Divider */}
+      <div className="laser-divider max-w-7xl mx-auto mb-16" />
       
       {/* Background Velvet Glow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-burgundy-900/30 rounded-full blur-[180px] pointer-events-none -z-10" />
@@ -32,15 +36,17 @@ export const EditorialContact: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         
         {/* Outro Masthead Typography */}
-        <div className="pb-14 border-b border-cream-300/15">
+        <div className="sr-hidden pb-14 border-b border-cream-300/15">
           <div className="flex items-center gap-2 font-sans text-xs tracking-widest uppercase text-cream-400 mb-3">
             <span className="w-2 h-2 rounded-full bg-burgundy-500 animate-ping" />
             <span>DIRECT COMMS & COLLABORATIONS // STATUS: OPEN</span>
           </div>
 
-          <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black font-serif tracking-tight text-cream-100 uppercase leading-none">
-            LET'S FORTIFY <span className="text-stroke-cream italic font-editorial">THE NEXT</span> FRONTIER.
-          </h2>
+          <div className="reveal-mask">
+            <h2 className="reveal-mask-inner text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black font-serif tracking-tight text-cream-100 uppercase leading-none">
+              LET'S FORTIFY <span className="text-stroke-cream italic font-editorial">THE NEXT</span> FRONTIER.
+            </h2>
+          </div>
 
           <div className="mt-6 flex flex-wrap items-center gap-4 text-xs font-sans text-cream-400">
             <span className="px-3.5 py-1 rounded-full bg-burgundy-900/80 border border-burgundy-700/60 text-cream-200 font-semibold tracking-wider">
@@ -54,7 +60,7 @@ export const EditorialContact: React.FC = () => {
         <div className="mt-14 grid grid-cols-1 lg:grid-cols-12 gap-10">
           
           {/* Left Column: Direct Communication Cards (Col 5) */}
-          <div className="lg:col-span-5 space-y-4">
+          <div className="sr-card lg:col-span-5 space-y-4">
             <span className="font-sans text-xs uppercase tracking-widest text-cream-400 font-bold block mb-2">
               DIRECT REACH:
             </span>
@@ -124,7 +130,7 @@ export const EditorialContact: React.FC = () => {
                   <LinkedinIcon className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-sans text-cream-400 uppercase block">LINKEDIN DOSSIER</span>
+                  <span className="text-[10px] font-sans text-cream-400 uppercase block">LINKEDIN PROFILE</span>
                   <span className="text-xs sm:text-sm font-sans font-semibold text-cream-100 group-hover:text-cream-300 transition-colors">
                     {PERSONAL_DOSSIER.linkedinHandle}
                   </span>
@@ -157,7 +163,7 @@ export const EditorialContact: React.FC = () => {
           </div>
 
           {/* Right Column: Transmission Form (Col 7) */}
-          <div className="lg:col-span-7 p-7 sm:p-8 rounded-2xl velvet-card shadow-velvet">
+          <div className="sr-card lg:col-span-7 p-7 sm:p-8 rounded-2xl velvet-card shadow-velvet">
             
             <div className="flex items-center justify-between pb-5 border-b border-cream-300/15">
               <span className="font-serif text-lg font-bold text-cream-100">

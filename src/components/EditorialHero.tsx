@@ -255,12 +255,12 @@ export const EditorialHero: React.FC = () => {
         </div>
 
         {/* STAT PILLARS */}
-        <div className={`mt-14 pt-8 border-t border-cream-300/10 grid grid-cols-2 lg:grid-cols-4 gap-4 transition-all duration-700 delay-[1200ms] ${revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+        <div className={`mt-14 pt-8 border-t border-cream-300/10 grid grid-cols-2 lg:grid-cols-4 gap-4 sr-stagger transition-all duration-700 delay-[1200ms] ${revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           {PERSONAL_DOSSIER.stats.map((stat, idx) => (
             <div
               key={idx}
               onMouseEnter={() => soundEngine.playPop(800 + idx * 60)}
-              className="p-5 rounded-xl velvet-card flex flex-col justify-between group hover:border-cream-300/30 transition-all"
+              className="sr-card p-5 rounded-xl velvet-card flex flex-col justify-between group hover:border-cream-300/30 transition-all"
             >
               <div>
                 <span className="text-4xl sm:text-5xl font-serif font-black text-cream-100 tracking-tight block group-hover:text-cream-50 transition-colors">

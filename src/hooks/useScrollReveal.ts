@@ -1,18 +1,22 @@
 import { useEffect, useRef } from 'react';
 
 /**
- * useScrollReveal — attaches IntersectionObserver to a container.
- * Any child with class `sr-hidden` gets `sr-visible` added when
- * it scrolls into view. Supports nested `.sr-stagger` groups.
+ * useScrollReveal — Advanced IntersectionObserver hook.
+ * Detects elements scrolling into viewport and triggers:
+ * - `.sr-hidden` -> `.sr-visible` (Fade and slide-up)
+ * - `.sr-card` -> `.sr-visible` (3D perspective rotate & settle)
+ * - `.laser-divider` -> `.sr-visible` (Horizontal laser beam expansion)
+ * - `.reveal-mask-inner` -> `.sr-visible` (Masked typography reveal)
  */
-export function useScrollReveal(threshold = 0.15) {
+export function useScrollReveal(threshold = 0.12) {
   const ref = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const container = ref.current;
     if (!container) return;
 
-    const targets = container.querySelectorAll<HTMLElement>('.sr-hidden');
+    const selector = '.sr-hidden, .sr-card, .laser-divider, .reveal-mask-inner';
+    const targets = container.querySelectorAll<HTMLElement>(selector);
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -23,10 +27,15 @@ export function useScrollReveal(threshold = 0.15) {
           }
         });
       },
-      { threshold, rootMargin: '0px 0px -60px 0px' }
+      { threshold, rootMargin: '0px 0px -40px 0px' }
     );
 
     targets.forEach((el) => observer.observe(el));
+
+    // Also observe the container itself if it has any animation class
+    if (container.matches(selector)) {
+      observer.observe(container);
+    }
 
     return () => observer.disconnect();
   }, [threshold]);

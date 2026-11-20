@@ -6,11 +6,14 @@
   --color-burgundy: #460918;
   --color-cream: #E4D4C3;
   --color-gold: #D4AF37;
+  --scroll-velocity: 0;
+  --scroll-progress: 0;
+  --scroll-y: 0px;
 }
 
 /* Custom Editorial Scrollbar */
 ::-webkit-scrollbar {
-  width: 7px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
   background: #09090C;
@@ -18,10 +21,21 @@
 ::-webkit-scrollbar-thumb {
   background: #340611;
   border-radius: 9999px;
-  border: 1px solid rgba(228, 212, 195, 0.2);
+  border: 1px solid rgba(228, 212, 195, 0.15);
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #680E24;
+}
+
+/* Lenis smooth scrolling essential styles */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
 }
 
 /* Velvet Atmospheric Radial Gradients */
@@ -41,12 +55,12 @@
     linear-gradient(to bottom, rgba(228, 212, 195, 0.035) 1px, transparent 1px);
 }
 
-/* Textured Noise simulation */
+/* Velvet Card Aesthetic */
 .velvet-card {
   background: linear-gradient(145deg, rgba(38, 4, 12, 0.85) 0%, rgba(16, 16, 21, 0.95) 100%);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(228, 212, 195, 0.12);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .velvet-card:hover {
@@ -73,40 +87,81 @@
   color: transparent;
 }
 
-/* ─── Scroll Reveal System ─── */
-/* Elements start hidden, JS adds .sr-visible to trigger entrance */
+/* ─── Awwwards-Grade Kinetic & Scroll Reveal System ─── */
+
+/* 1. Kinetic Skew — subtly responds to scroll inertia */
+.kinetic-skew {
+  transform: perspective(1200px) skewY(calc(var(--scroll-velocity, 0) * 0.07deg));
+  transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+/* 2. Standard Scroll Reveal Fade & Up */
 .sr-hidden {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(35px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 .sr-visible {
   opacity: 1 !important;
   transform: none !important;
 }
 
-/* Staggered children */
+/* 3. 3D Perspective Card Tilt Entrance */
+.sr-card {
+  opacity: 0;
+  transform: perspective(1000px) rotateX(10deg) translateY(45px) scale(0.96);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
+  will-change: transform, opacity;
+}
+.sr-card.sr-visible {
+  opacity: 1 !important;
+  transform: perspective(1000px) rotateX(0deg) translateY(0) scale(1) !important;
+}
+
+/* 4. Masked Headline Typography Reveal (Slide up from behind overflow mask) */
+.reveal-mask {
+  overflow: hidden;
+  display: block;
+}
+.reveal-mask-inner {
+  display: block;
+  transform: translateY(115%);
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.sr-visible .reveal-mask-inner,
+.reveal-mask-inner.sr-visible {
+  transform: translateY(0%) !important;
+}
+
+/* 5. Expanding Radiant Laser Line between sections */
+.laser-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(228, 212, 195, 0.25) 25%, rgba(244, 63, 94, 0.7) 50%, rgba(228, 212, 195, 0.25) 75%, transparent 100%);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.laser-divider.sr-visible {
+  transform: scaleX(1) !important;
+}
+
+/* 6. Stagger delays for children */
 .sr-stagger > *:nth-child(1)  { transition-delay: 0ms; }
-.sr-stagger > *:nth-child(2)  { transition-delay: 80ms; }
-.sr-stagger > *:nth-child(3)  { transition-delay: 160ms; }
-.sr-stagger > *:nth-child(4)  { transition-delay: 240ms; }
-.sr-stagger > *:nth-child(5)  { transition-delay: 320ms; }
-.sr-stagger > *:nth-child(6)  { transition-delay: 400ms; }
-
-/* Curtain wipe between sections */
-@keyframes curtainUp {
-  0%   { clip-path: inset(0 0 0 0); }
-  100% { clip-path: inset(0 0 100% 0); }
-}
-.curtain-reveal {
-  animation: curtainUp 0.9s cubic-bezier(0.76, 0, 0.24, 1) forwards;
-}
-
-/* Smooth scroll */
-html {
-  scroll-behavior: smooth;
-}
+.sr-stagger > *:nth-child(2)  { transition-delay: 75ms; }
+.sr-stagger > *:nth-child(3)  { transition-delay: 150ms; }
+.sr-stagger > *:nth-child(4)  { transition-delay: 225ms; }
+.sr-stagger > *:nth-child(5)  { transition-delay: 300ms; }
+.sr-stagger > *:nth-child(6)  { transition-delay: 375ms; }
+.sr-stagger > *:nth-child(7)  { transition-delay: 450ms; }
+.sr-stagger > *:nth-child(8)  { transition-delay: 525ms; }
 
 /* Domain card compact overrides */
 .domain-card-compact p.overview {
@@ -115,4 +170,3 @@ html {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-

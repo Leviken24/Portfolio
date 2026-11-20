@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ArrowLeft, ArrowRight, ShieldCheck, Cpu, Bot, Cloud, Radio, Sparkles, CheckCircle2 } from 'lucide-react';
 import { SKILL_CATEGORIES } from '../data/portfolioData';
 import { soundEngine } from '../utils/audio';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 const domainConfigs = [
   {
@@ -78,6 +79,7 @@ const domainConfigs = [
 
 export const CapabilitiesDeck: React.FC = () => {
   const [activeSlide, setActiveSlide] = useState<number>(0);
+  const sectionRef = useScrollReveal(0.08);
 
   const totalSlides = domainConfigs.length;
 
@@ -108,8 +110,11 @@ export const CapabilitiesDeck: React.FC = () => {
   return (
     <section 
       id="capabilities" 
-      className="py-24 px-4 sm:px-6 lg:px-8 border-t border-cream-300/15 relative overflow-hidden transition-colors duration-700"
+      ref={sectionRef as React.RefObject<HTMLElement>}
+      className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden transition-colors duration-700"
     >
+      {/* Expanding Laser Divider */}
+      <div className="laser-divider max-w-7xl mx-auto mb-16" />
       
       {/* DYNAMIC BACKGROUND COLOR-MORPHING AMBIENT GLOW (Inspired by Short PnqYp_kZ00I) */}
       <div 
@@ -122,15 +127,17 @@ export const CapabilitiesDeck: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b border-cream-300/15">
+        <div className="sr-hidden flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b border-cream-300/15">
           <div>
             <div className="flex items-center gap-2 font-sans text-xs tracking-widest uppercase text-cream-400 mb-2">
-              <span className="text-burgundy-500 font-bold">[03]</span>
-              <span>3D MULTI-AXIS COLOR-MORPHING CAROUSEL</span>
+              <span className="text-burgundy-500 font-bold">[04]</span>
+              <span>TECHNICAL ARSENAL & CAPABILITIES</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl md:text-6xl font-serif font-black text-cream-100 uppercase tracking-tight">
-              CAPABILITIES ARSENAL
-            </h2>
+            <div className="reveal-mask">
+              <h2 className="reveal-mask-inner text-3xl sm:text-5xl md:text-6xl font-serif font-black text-cream-100 uppercase tracking-tight">
+                CAPABILITIES ARSENAL
+              </h2>
+            </div>
           </div>
 
           <div className="max-w-md text-xs sm:text-sm font-sans text-cream-400 leading-relaxed">
@@ -141,7 +148,7 @@ export const CapabilitiesDeck: React.FC = () => {
         </div>
 
         {/* 3D "BREAKING-THE-GRID" MULTI-AXIS CAROUSEL CONTAINER */}
-        <div className="mt-16 relative">
+        <div className="sr-card mt-16 relative">
           
           {/* Main 3-Card Carousel Track (Center Card + Left/Right Peek Cards) */}
           <div className="flex items-center justify-center gap-4 sm:gap-8 pt-12 pb-6">

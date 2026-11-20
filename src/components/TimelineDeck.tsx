@@ -98,7 +98,10 @@ export const TimelineDeck: React.FC = () => {
   ];
 
   return (
-    <section id="timeline" ref={sectionRef as React.RefObject<HTMLElement>} className="py-20 px-4 sm:px-6 lg:px-8 border-t border-cream-300/15 relative">
+    <section id="timeline" ref={sectionRef as React.RefObject<HTMLElement>} className="py-20 px-4 sm:px-6 lg:px-8 relative">
+      {/* Expanding Laser Divider */}
+      <div className="laser-divider max-w-7xl mx-auto mb-16" />
+
       <div className="max-w-7xl mx-auto">
         
         {/* Section Header */}
@@ -108,9 +111,11 @@ export const TimelineDeck: React.FC = () => {
               <span className="text-burgundy-500 font-bold">[03]</span>
               <span>CHRONOLOGICAL EVOLUTION & MILESTONES</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-serif font-black text-cream-100 uppercase tracking-tight">
-              RESEARCH TIMELINE
-            </h2>
+            <div className="reveal-mask">
+              <h2 className="reveal-mask-inner text-3xl sm:text-5xl font-serif font-black text-cream-100 uppercase tracking-tight">
+                RESEARCH TIMELINE
+              </h2>
+            </div>
           </div>
 
           <div className="max-w-md text-xs sm:text-sm font-sans text-cream-400 leading-relaxed">
@@ -120,8 +125,8 @@ export const TimelineDeck: React.FC = () => {
           </div>
         </div>
 
-        {/* Timeline Horizontal Year Selectors (From Reference 3 & 4) */}
-        <div className="mt-8 flex flex-wrap gap-2.5 pb-6 border-b border-cream-300/10">
+        {/* Timeline Horizontal Year Selectors */}
+        <div className="sr-hidden mt-8 flex flex-wrap gap-2.5 pb-6 border-b border-cream-300/10">
           {milestones.map((m, idx) => {
             const Icon = m.icon;
             const isCurrent = activeIdx === idx;
@@ -134,7 +139,7 @@ export const TimelineDeck: React.FC = () => {
                 }}
                 className={`px-4 py-2.5 rounded-full font-sans text-xs uppercase tracking-wider transition-all flex items-center gap-2 ${
                   isCurrent
-                    ? 'bg-cream-100 text-burgundy-950 font-bold shadow-md'
+                    ? 'bg-cream-100 text-burgundy-950 font-bold shadow-md scale-105'
                     : 'bg-burgundy-950/60 hover:bg-burgundy-900 border border-cream-300/15 text-cream-400 hover:text-cream-100'
                 }`}
               >
@@ -146,9 +151,9 @@ export const TimelineDeck: React.FC = () => {
           })}
         </div>
 
-        {/* Active Milestone Card (High Information Density) */}
+        {/* Active Milestone Card */}
         {milestones[activeIdx] && (
-          <div className="mt-8 p-6 sm:p-10 rounded-2xl velvet-card grid grid-cols-1 lg:grid-cols-12 gap-8 items-start shadow-velvet">
+          <div className="sr-card mt-8 p-6 sm:p-10 rounded-2xl velvet-card grid grid-cols-1 lg:grid-cols-12 gap-8 items-start shadow-velvet">
             
             {/* Left Column: Era Overview (Col 5) */}
             <div className="lg:col-span-5 space-y-5">
