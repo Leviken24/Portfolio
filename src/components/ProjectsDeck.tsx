@@ -77,16 +77,16 @@ export const ProjectsDeck: React.FC = () => {
           <div>
             <div className="flex items-center gap-2 font-sans text-xs tracking-widest uppercase text-cream-400 mb-2">
               <span className="text-burgundy-500 font-bold">[02]</span>
-              <span>CLASSIFIED WORKS & CMS DOSSIERS</span>
+              <span>SELECTED WORKS & CASE FILES</span>
             </div>
             <h2 className="text-3xl sm:text-5xl md:text-6xl font-serif font-black text-cream-100 uppercase tracking-tight">
-              FEATURED DOSSIERS
+              CASE FILES
             </h2>
           </div>
 
           <div className="max-w-md text-xs sm:text-sm font-sans text-cream-400 leading-relaxed">
             <p>
-              Hover over any dossier row to expand the inline visual telemetry card, or click to open the complete architectural case study.
+              Hover any project row to expand inline telemetry — click to open the full architectural case study.
             </p>
           </div>
         </div>

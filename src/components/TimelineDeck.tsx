@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Calendar, ArrowRight, Award, CheckCircle2, Sparkles, Shield, Cpu, Bot, Cloud, Radio } from 'lucide-react';
+import { Shield, Cpu, Bot, Cloud, Radio } from 'lucide-react';
 import { soundEngine } from '../utils/audio';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 interface Milestone {
   year: string;
@@ -16,6 +17,7 @@ interface Milestone {
 
 export const TimelineDeck: React.FC = () => {
   const [activeIdx, setActiveIdx] = useState<number>(0);
+  const sectionRef = useScrollReveal(0.08);
 
   const milestones: Milestone[] = [
     {
@@ -96,11 +98,11 @@ export const TimelineDeck: React.FC = () => {
   ];
 
   return (
-    <section id="timeline" className="py-20 px-4 sm:px-6 lg:px-8 border-t border-cream-300/15 relative">
+    <section id="timeline" ref={sectionRef as React.RefObject<HTMLElement>} className="py-20 px-4 sm:px-6 lg:px-8 border-t border-cream-300/15 relative">
       <div className="max-w-7xl mx-auto">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-cream-300/15">
+        <div className="sr-hidden flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-cream-300/15">
           <div>
             <div className="flex items-center gap-2 font-sans text-xs tracking-widest uppercase text-cream-400 mb-2">
               <span className="text-burgundy-500 font-bold">[03]</span>
