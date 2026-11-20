@@ -3,18 +3,24 @@ import { ArrowDownRight, Mail, Phone, Copy, Check, Upload, Camera, X, ArrowRight
 import { PERSONAL_DOSSIER } from '../data/portfolioData';
 import { GithubIcon, LinkedinIcon } from './Icons';
 import { soundEngine } from '../utils/audio';
+import profilePhoto from '../assets/profile.jpg';
 
 const NAME_LETTERS = 'H S SHREEJA'.split('');
+const DEFAULT_PHOTO = profilePhoto;
 
 export const EditorialHero: React.FC = () => {
   const [copiedType, setCopiedType] = useState<string | null>(null);
-  const [customPhotoUrl, setCustomPhotoUrl] = useState<string | null>(null);
+  const [customPhotoUrl, setCustomPhotoUrl] = useState<string>(DEFAULT_PHOTO);
   const [revealed, setRevealed] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const saved = localStorage.getItem('shreeja_portfolio_photo');
-    if (saved) setCustomPhotoUrl(saved);
+    const saved = localStorage.getItem('shreeja_portfolio_photo_v2');
+    if (saved) {
+      setCustomPhotoUrl(saved);
+    } else {
+      setCustomPhotoUrl(DEFAULT_PHOTO);
+    }
     // Trigger entrance animation after a brief delay
     const t = setTimeout(() => setRevealed(true), 300);
     return () => clearTimeout(t);
@@ -28,7 +34,7 @@ export const EditorialHero: React.FC = () => {
       reader.onload = (event) => {
         const result = event.target?.result as string;
         setCustomPhotoUrl(result);
-        localStorage.setItem('shreeja_portfolio_photo', result);
+        localStorage.setItem('shreeja_portfolio_photo_v2', result);
       };
       reader.readAsDataURL(file);
     }
@@ -36,8 +42,8 @@ export const EditorialHero: React.FC = () => {
 
   const handleRemovePhoto = () => {
     soundEngine.playPop(650);
-    setCustomPhotoUrl(null);
-    localStorage.removeItem('shreeja_portfolio_photo');
+    setCustomPhotoUrl(DEFAULT_PHOTO);
+    localStorage.removeItem('shreeja_portfolio_photo_v2');
   };
 
   const copyToClipboard = (text: string, type: string) => {
@@ -49,7 +55,7 @@ export const EditorialHero: React.FC = () => {
 
   return (
     <section id="top" className="relative min-h-screen flex flex-col justify-center pt-20 pb-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      
+
       {/* Hidden File Input */}
       <input ref={fileInputRef} type="file" accept="image/*" onChange={handlePhotoUpload} className="hidden" />
 
@@ -59,7 +65,8 @@ export const EditorialHero: React.FC = () => {
         <div className="absolute top-1/3 -right-32 w-[500px] h-[500px] bg-burgundy-950/50 rounded-full blur-[160px]" />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-cream-400/4 rounded-full blur-[130px]" />
         {/* Subtle grid overlay */}
-        <div className="absolute inset-0 opacity-[0.03]"
+        <div
+          className="absolute inset-0 opacity-[0.03]"
           style={{ backgroundImage: 'linear-gradient(cream 1px,transparent 1px),linear-gradient(90deg,cream 1px,transparent 1px)', backgroundSize: '80px 80px' }}
         />
       </div>
@@ -106,9 +113,8 @@ export const EditorialHero: React.FC = () => {
               {NAME_LETTERS.map((letter, i) => (
                 <span
                   key={i}
-                  className={`inline-block transition-all duration-700 ${
-                    letter === ' ' ? 'w-[0.25em]' : ''
-                  } ${revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                  className={`inline-block transition-all duration-700 ${letter === ' ' ? 'w-[0.25em]' : ''
+                    } ${revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
                   style={{
                     transitionDelay: `${200 + i * 55}ms`,
                     color: i < 3 ? '#f5f0e8' : '#ede8de',
@@ -196,63 +202,48 @@ export const EditorialHero: React.FC = () => {
 
           {/* RIGHT: Portrait Arch (4 cols) */}
           <div className={`lg:col-span-4 flex flex-col items-center transition-all duration-1000 delay-500 ${revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            
+
             {/* Arch frame */}
-            <div className="relative group w-full max-w-[260px]">
+            <div className="relative group w-full max-w-[280px] sm:max-w-[320px]">
               {/* Decorative corner accents */}
-              <div className="absolute -top-3 -left-3 w-6 h-6 border-t-2 border-l-2 border-cream-300/40 rounded-tl-sm" />
-              <div className="absolute -top-3 -right-3 w-6 h-6 border-t-2 border-r-2 border-cream-300/40 rounded-tr-sm" />
-              <div className="absolute -bottom-3 -left-3 w-6 h-6 border-b-2 border-l-2 border-cream-300/40 rounded-bl-sm" />
-              <div className="absolute -bottom-3 -right-3 w-6 h-6 border-b-2 border-r-2 border-cream-300/40 rounded-br-sm" />
+              <div className="absolute -top-3 -left-3 w-6 h-6 border-t-2 border-l-2 border-cream-300/40 rounded-tl-sm z-10 pointer-events-none" />
+              <div className="absolute -top-3 -right-3 w-6 h-6 border-t-2 border-r-2 border-cream-300/40 rounded-tr-sm z-10 pointer-events-none" />
+              <div className="absolute -bottom-3 -left-3 w-6 h-6 border-b-2 border-l-2 border-cream-300/40 rounded-bl-sm z-10 pointer-events-none" />
+              <div className="absolute -bottom-3 -right-3 w-6 h-6 border-b-2 border-r-2 border-cream-300/40 rounded-br-sm z-10 pointer-events-none" />
 
               {/* Arch window */}
               <div className="w-full aspect-[3/4] rounded-t-[50%] rounded-b-2xl bg-gradient-to-b from-burgundy-900/90 via-burgundy-950 to-obsidian-950 border border-cream-300/25 shadow-2xl overflow-hidden relative">
-                {customPhotoUrl ? (
-                  <img src={customPhotoUrl} alt="H S Shreeja" className="w-full h-full object-cover" />
-                ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center gap-4 p-6 text-center">
-                    {/* Decorative rings */}
-                    <div className="relative">
-                      <div className="w-24 h-24 rounded-full border border-cream-300/20 flex items-center justify-center">
-                        <div className="w-16 h-16 rounded-full bg-burgundy-900/80 border border-cream-300/30 flex items-center justify-center">
-                          <span className="font-serif text-2xl font-black text-cream-100">HS</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <span className="font-serif font-bold text-sm text-cream-100 block">Your Portrait</span>
-                      <span className="text-[10px] font-sans text-cream-400 block mt-1">Upload professional photo</span>
-                    </div>
-                    <button
-                      onClick={() => fileInputRef.current?.click()}
-                      className="px-4 py-2 rounded-full bg-cream-100 hover:bg-cream-200 text-burgundy-950 text-[11px] font-sans font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-md"
-                    >
-                      <Upload className="w-3.5 h-3.5" />
-                      Upload Photo
-                    </button>
-                  </div>
-                )}
+                <img
+                  src={customPhotoUrl}
+                  alt="H S Shreeja"
+                  className="w-full h-full object-cover object-[center_18%] scale-100 group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+
+                {/* Subtle luxury vignette & tone */}
+                <div className="absolute inset-0 bg-gradient-to-t from-obsidian-950/85 via-obsidian-950/20 to-transparent pointer-events-none" />
 
                 {/* Availability badge at bottom */}
-                <div className="absolute bottom-3 inset-x-3 px-3 py-1.5 rounded-full bg-obsidian-950/90 backdrop-blur-md border border-cream-300/20 text-[10px] font-sans text-cream-200 text-center tracking-widest uppercase flex items-center justify-center gap-1.5">
+                <div className="absolute bottom-3 inset-x-3 px-3 py-1.5 rounded-full bg-obsidian-950/90 backdrop-blur-md border border-cream-300/25 text-[10px] font-sans text-cream-200 text-center tracking-widest uppercase flex items-center justify-center gap-1.5 shadow-md">
                   <span className="w-1.5 h-1.5 rounded-full bg-burgundy-500 animate-pulse" />
                   <span>Researcher & Defender</span>
                 </div>
               </div>
 
-              {/* Upload / remove controls */}
+              {/* Upload / Change Photo controls */}
               <div className="mt-3 flex items-center justify-center gap-2 font-sans text-xs">
                 <button
                   onClick={() => fileInputRef.current?.click()}
-                  className="px-3 py-1.5 rounded-full bg-burgundy-900/80 hover:bg-burgundy-800 border border-cream-300/20 text-cream-200 text-[11px] flex items-center gap-1.5 transition-all"
+                  className="px-3.5 py-1.5 rounded-full bg-burgundy-900/80 hover:bg-burgundy-800 border border-cream-300/20 text-cream-200 text-[11px] flex items-center gap-1.5 transition-all shadow-sm"
+                  title="Upload or change professional photo"
                 >
                   <Camera className="w-3.5 h-3.5" />
-                  {customPhotoUrl ? 'Change Photo' : 'Upload Picture'}
+                  <span>{customPhotoUrl !== DEFAULT_PHOTO ? 'Change Custom Photo' : 'Update Photo'}</span>
                 </button>
-                {customPhotoUrl && (
+                {customPhotoUrl !== DEFAULT_PHOTO && (
                   <button
                     onClick={handleRemovePhoto}
                     className="p-1.5 rounded-full bg-burgundy-950 border border-cream-300/20 text-cream-400 hover:text-cream-100 transition-colors"
+                    title="Reset to official portrait"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
