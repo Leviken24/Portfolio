@@ -249,6 +249,16 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       { name: "Infrastructure-as-Code & Scanning", level: "Advanced", description: "Declarative security templates, static IaC audits", tools: ["Terraform", "Trivy", "Checkov"] },
       { name: "CI/CD Pipeline Security Automation", level: "Advanced", description: "Automated vulnerability gating, secret detection", tools: ["GitHub Actions", "SonarQube"] }
     ]
+  },
+  {
+    title: "IoT & Hardware Pentesting",
+    description: "Firmware extraction, binary reverse engineering, CAN bus diagnostics, and hardware debugging.",
+    skills: [
+      { name: "Firmware Extraction & Emulation", level: "Expert", description: "Flash memory dumping, entropy analysis, QEMU binary emulation", tools: ["Binwalk", "Ghidra", "QEMU"] },
+      { name: "CAN Bus Vehicle Telemetry", level: "Advanced", description: "Differential frame sniffing, OBD-II injection, ECU command bypass", tools: ["SocketCAN", "Wireshark", "C++"] },
+      { name: "Hardware Probing (UART / JTAG / SPI)", level: "Advanced", description: "Logic analysis, serial console breakout, glitching", tools: ["Saleae Logic", "Bus Pirate", "OpenOCD"] },
+      { name: "Microcontroller Security (ESP32 / ARM)", level: "Expert", description: "Secure boot validation, flash encryption, memory protection", tools: ["ESP-IDF", "FreeRTOS", "Keil"] }
+    ]
   }
 ];
 

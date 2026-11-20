@@ -1,117 +1,278 @@
 import React, { useState } from 'react';
-import { ArrowUpRight, ShieldCheck, CheckCircle2, Layers, Cpu, ExternalLink, Activity } from 'lucide-react';
-import { PROJECTS_DOSSIER } from '../data/portfolioData';
+import { ArrowUpRight, ShieldCheck, X, Cpu, Layers, ExternalLink, Activity, Sparkles, Terminal } from 'lucide-react';
+import { PROJECTS_DOSSIER, Project } from '../data/portfolioData';
 import { GithubIcon } from './Icons';
 import { soundEngine } from '../utils/audio';
 
 export const ProjectsDeck: React.FC = () => {
-  const [activeProjectId, setActiveProjectId] = useState<string>(PROJECTS_DOSSIER[0].id);
+  const [hoveredProjectId, setHoveredProjectId] = useState<string | null>(null);
+  const [activeModalProject, setActiveModalProject] = useState<Project | null>(null);
 
-  const activeProject = PROJECTS_DOSSIER.find(p => p.id === activeProjectId) || PROJECTS_DOSSIER[0];
+  const handleRowHover = (id: string) => {
+    soundEngine.playPop(800);
+    setHoveredProjectId(id);
+  };
+
+  const handleRowLeave = () => {
+    setHoveredProjectId(null);
+  };
+
+  const handleOpenModal = (project: Project) => {
+    soundEngine.playChime();
+    setActiveModalProject(project);
+  };
+
+  const handleCloseModal = () => {
+    soundEngine.playPop(650);
+    setActiveModalProject(null);
+  };
+
+  // Preview card gradient & accent styles per project
+  const getProjectTheme = (category: string) => {
+    switch (category) {
+      case 'ai-hacking':
+        return {
+          gradient: 'from-burgundy-900 via-burgundy-950 to-obsidian-950',
+          border: 'border-burgundy-600/40',
+          textAccent: 'text-burgundy-400',
+          pillBg: 'bg-burgundy-900/80 text-cream-200'
+        };
+      case 'iot':
+        return {
+          gradient: 'from-rose-950 via-burgundy-950 to-obsidian-950',
+          border: 'border-rose-700/40',
+          textAccent: 'text-rose-400',
+          pillBg: 'bg-rose-900/70 text-cream-200'
+        };
+      case 'cloud':
+        return {
+          gradient: 'from-sky-950 via-burgundy-950 to-obsidian-950',
+          border: 'border-sky-700/40',
+          textAccent: 'text-sky-400',
+          pillBg: 'bg-sky-900/70 text-cream-200'
+        };
+      case 'robotics':
+        return {
+          gradient: 'from-amber-950 via-burgundy-950 to-obsidian-950',
+          border: 'border-amber-600/40',
+          textAccent: 'text-amber-400',
+          pillBg: 'bg-amber-900/70 text-cream-200'
+        };
+      default:
+        return {
+          gradient: 'from-burgundy-900 via-obsidian-950 to-obsidian-950',
+          border: 'border-cream-300/30',
+          textAccent: 'text-cream-300',
+          pillBg: 'bg-burgundy-900 text-cream-100'
+        };
+    }
+  };
 
   return (
-    <section id="dossiers" className="py-20 px-4 sm:px-6 lg:px-8 border-t border-cream-300/15 relative">
+    <section id="dossiers" className="py-24 px-4 sm:px-6 lg:px-8 border-t border-cream-300/15 relative">
       <div className="max-w-7xl mx-auto">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-cream-300/15">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b border-cream-300/15">
           <div>
             <div className="flex items-center gap-2 font-sans text-xs tracking-widest uppercase text-cream-400 mb-2">
               <span className="text-burgundy-500 font-bold">[02]</span>
-              <span>CLASSIFIED TECHNICAL WORK & CASE STUDIES</span>
+              <span>CLASSIFIED WORKS & CMS DOSSIERS</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-serif font-black text-cream-100 uppercase tracking-tight">
+            <h2 className="text-3xl sm:text-5xl md:text-6xl font-serif font-black text-cream-100 uppercase tracking-tight">
               FEATURED DOSSIERS
             </h2>
           </div>
 
           <div className="max-w-md text-xs sm:text-sm font-sans text-cream-400 leading-relaxed">
             <p>
-              In-depth architectural breakdowns of offensive AI security, vehicular telemetry auditing, cloud honeytokens, and autonomous robotics.
+              Hover over any dossier row to expand the inline visual telemetry card, or click to open the complete architectural case study.
             </p>
           </div>
         </div>
 
-        {/* Presentation Slide Tabs (Compact, Zero-Wasted Scroll) */}
-        <div className="mt-8 flex flex-wrap gap-2.5 pb-6 border-b border-cream-300/10">
-          {PROJECTS_DOSSIER.map((project, idx) => (
-            <button
-              key={project.id}
-              onClick={() => {
-                soundEngine.playPop(800 + idx * 60);
-                setActiveProjectId(project.id);
-              }}
-              className={`px-4 py-2.5 rounded-full font-sans text-xs uppercase tracking-wider transition-all flex items-center gap-2 ${
-                activeProjectId === project.id
-                  ? 'bg-cream-100 text-burgundy-950 font-bold shadow-md'
-                  : 'bg-burgundy-950/60 hover:bg-burgundy-900 border border-cream-300/15 text-cream-400 hover:text-cream-100'
-              }`}
-            >
-              <span className="font-serif text-xs font-black">0{idx + 1}.</span>
-              <span>{project.title.split('—')[0].trim()}</span>
-            </button>
-          ))}
+        {/* Interactive CMS List Row Repeater (Inspired by Rina Grim / Wix Studio CMS Repeater vc7fKrfbu7c) */}
+        <div className="divide-y divide-cream-300/15 border-b border-cream-300/15">
+          {PROJECTS_DOSSIER.map((project, idx) => {
+            const isHovered = hoveredProjectId === project.id;
+            const theme = getProjectTheme(project.category);
+
+            return (
+              <div
+                key={project.id}
+                onMouseEnter={() => handleRowHover(project.id)}
+                onMouseLeave={handleRowLeave}
+                onClick={() => handleOpenModal(project)}
+                className="group py-6 sm:py-8 px-2 sm:px-4 cursor-pointer transition-colors duration-300 hover:bg-cream-100/[0.02] flex items-center justify-between gap-4"
+              >
+                {/* Left: Number + Title + Inline Expanding Card */}
+                <div className="flex items-center gap-4 sm:gap-6 min-w-0 flex-1">
+                  
+                  {/* Number Badge */}
+                  <span className="font-serif text-lg sm:text-2xl font-bold text-cream-400 group-hover:text-cream-100 transition-colors shrink-0">
+                    0{idx + 1}
+                  </span>
+
+                  {/* Project Title */}
+                  <h3 className="font-serif text-2xl sm:text-4xl md:text-5xl font-black text-cream-100 uppercase tracking-tight transition-transform duration-300 shrink-0">
+                    {project.title.split('—')[0].trim()}
+                  </h3>
+
+                  {/* INLINE EXPANDING PREVIEW THUMBNAIL CARD */}
+                  <div
+                    className={`transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden hidden sm:block ${
+                      isHovered 
+                        ? 'w-64 sm:w-72 md:w-80 opacity-100 ml-3 mr-3 shadow-2xl scale-100' 
+                        : 'w-0 opacity-0 ml-0 mr-0 scale-95 pointer-events-none'
+                    }`}
+                  >
+                    <div className={`h-24 sm:h-28 rounded-xl bg-gradient-to-br ${theme.gradient} border ${theme.border} p-3 flex flex-col justify-between shadow-velvet relative overflow-hidden`}>
+                      
+                      {/* Card Top: Code & Metric */}
+                      <div className="flex items-center justify-between text-[10px] font-sans">
+                        <span className="px-2 py-0.5 rounded-full bg-cream-100/10 text-cream-300 font-mono">
+                          {project.code}
+                        </span>
+                        <span className="font-bold text-cream-100">
+                          {project.metrics[0]?.value}
+                        </span>
+                      </div>
+
+                      {/* Card Middle: Subtitle & Target Vector */}
+                      <div className="min-w-0">
+                        <span className="text-[11px] font-serif font-bold text-cream-100 truncate block">
+                          {project.title.split('—')[1]?.trim() || project.subtitle}
+                        </span>
+                        <span className="text-[9px] font-sans text-cream-400 truncate block mt-0.5">
+                          Target: {project.attackVectorOrSpec}
+                        </span>
+                      </div>
+
+                      {/* Card Bottom: Tech Pills */}
+                      <div className="flex items-center gap-1 overflow-hidden">
+                        {project.toolsUsed.slice(0, 3).map((tool, tIdx) => (
+                          <span key={tIdx} className="text-[8px] font-sans px-1.5 py-0.5 rounded bg-cream-100/10 text-cream-300 shrink-0">
+                            {tool}
+                          </span>
+                        ))}
+                        {project.toolsUsed.length > 3 && (
+                          <span className="text-[8px] font-sans text-cream-400">+{project.toolsUsed.length - 3}</span>
+                        )}
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* Right: Domain Metadata Tag & Arrow Button */}
+                <div className="flex items-center gap-3 sm:gap-6 shrink-0">
+                  <div className="text-right hidden md:block">
+                    <span className="text-xs font-sans uppercase tracking-widest text-cream-300 font-semibold block">
+                      {project.domain.split('/')[0].trim()}
+                    </span>
+                    <span className="text-[10px] font-sans text-cream-400 block mt-0.5">
+                      EDITION 2026
+                    </span>
+                  </div>
+
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-cream-300/20 group-hover:border-cream-100 group-hover:bg-cream-100 group-hover:text-burgundy-950 text-cream-300 transition-all flex items-center justify-center shadow-sm">
+                    <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </div>
+                </div>
+
+              </div>
+            );
+          })}
         </div>
 
-        {/* Active Project Presentation Slide Spread (Dense, High-End Layout) */}
-        <div className="mt-8 p-6 sm:p-10 rounded-2xl velvet-card grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start shadow-velvet">
-          
-          {/* Left Column: Deep Problem, Solution & Architecture (Col 7) */}
-          <div className="lg:col-span-7 space-y-6">
-            
-            {/* Meta Ribbon */}
-            <div className="flex items-center justify-between pb-4 border-b border-cream-300/15">
-              <span className="font-sans text-xs uppercase tracking-widest text-cream-300 font-semibold px-3 py-1 rounded-full bg-burgundy-900/80 border border-burgundy-700/60">
-                {activeProject.domain}
-              </span>
-              <span className="font-serif text-sm font-bold text-cream-400">
-                {activeProject.code}
-              </span>
-            </div>
+        {/* Bottom Directive */}
+        <div className="mt-8 flex items-center justify-between text-xs font-sans text-cream-400">
+          <span>ALL REPOSITORIES OPEN SOURCE & REPRODUCIBLE</span>
+          <a
+            href="https://github.com/Leviken24"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => soundEngine.playClick()}
+            className="hover:text-cream-100 transition-colors uppercase tracking-wider flex items-center gap-1.5 text-[11px]"
+          >
+            <span>EXPLORE GITHUB CODEBASE</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </a>
+        </div>
 
-            {/* Title & Subtitle */}
+      </div>
+
+      {/* DETAILED CASE STUDY DRAWER MODAL (When clicking any row) */}
+      {activeModalProject && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-obsidian-950/85 backdrop-blur-xl animate-fade-in">
+          
+          <div 
+            className="w-full max-w-4xl max-h-[90vh] bg-obsidian-900 border border-cream-300/25 rounded-2xl p-6 sm:p-8 overflow-y-auto shadow-2xl relative space-y-6"
+            style={{
+              backgroundImage: 'radial-gradient(circle at 85% 15%, rgba(104, 14, 36, 0.3) 0%, rgba(16, 16, 21, 0.98) 70%)'
+            }}
+          >
+            {/* Modal Close Button */}
+            <button
+              onClick={handleCloseModal}
+              className="absolute top-6 right-6 p-2 rounded-full border border-cream-300/20 hover:border-cream-100 text-cream-400 hover:text-cream-100 transition-colors"
+              title="Close Case Study"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Modal Header */}
             <div>
-              <h3 className="text-2xl sm:text-3xl font-serif font-black text-cream-100 tracking-tight">
-                {activeProject.title}
+              <div className="flex items-center gap-3 mb-2">
+                <span className="px-3 py-1 rounded-full bg-burgundy-900 text-cream-200 text-xs font-sans font-semibold tracking-wider">
+                  {activeModalProject.domain}
+                </span>
+                <span className="font-serif text-sm font-bold text-cream-400">
+                  {activeModalProject.code}
+                </span>
+              </div>
+              <h3 className="text-3xl sm:text-4xl font-serif font-black text-cream-100 tracking-tight">
+                {activeModalProject.title}
               </h3>
               <p className="mt-1 text-sm font-editorial italic text-cream-300">
-                {activeProject.subtitle}
+                {activeModalProject.subtitle}
               </p>
             </div>
 
             {/* Executive Summary */}
-            <p className="text-xs sm:text-sm font-sans text-cream-300/90 leading-relaxed bg-burgundy-950/60 p-4 rounded-xl border border-cream-300/10">
-              {activeProject.executiveSummary}
-            </p>
+            <div className="p-4 rounded-xl bg-burgundy-950/70 border border-cream-300/15 text-xs sm:text-sm font-sans text-cream-200 leading-relaxed">
+              {activeModalProject.executiveSummary}
+            </div>
 
-            {/* Problem & Solution Breakdown */}
+            {/* Problem & Solution Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-sans">
-              <div className="p-4 rounded-xl bg-obsidian-900/80 border border-cream-300/10">
+              <div className="p-4 rounded-xl bg-obsidian-950/80 border border-cream-300/10">
                 <span className="text-[10px] uppercase tracking-widest text-cream-400 font-bold block mb-1">
                   SYSTEMIC CHALLENGE:
                 </span>
                 <p className="text-cream-300 leading-relaxed">
-                  {activeProject.problemStatement}
+                  {activeModalProject.problemStatement}
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-obsidian-900/80 border border-cream-300/10">
+              <div className="p-4 rounded-xl bg-obsidian-950/80 border border-cream-300/10">
                 <span className="text-[10px] uppercase tracking-widest text-cream-400 font-bold block mb-1">
                   ENGINEERED SOLUTION:
                 </span>
                 <p className="text-cream-300 leading-relaxed">
-                  {activeProject.technicalSolution}
+                  {activeModalProject.technicalSolution}
                 </p>
               </div>
             </div>
 
-            {/* Architecture Points */}
-            <div className="space-y-2.5 pt-2">
-              <span className="text-[11px] font-sans uppercase tracking-widest text-cream-400 font-bold block">
-                SUBSYSTEM ARCHITECTURE & IMPLEMENTATION SPECS:
+            {/* Subsystem Architecture Points */}
+            <div className="space-y-2 pt-2">
+              <span className="text-xs font-sans uppercase tracking-widest text-cream-400 font-bold block">
+                SUBSYSTEM ARCHITECTURE IMPLEMENTATION:
               </span>
               <div className="space-y-2">
-                {activeProject.architecturePoints.map((point, pIdx) => (
+                {activeModalProject.architecturePoints.map((point, pIdx) => (
                   <div key={pIdx} className="flex items-start gap-2.5 text-xs font-sans text-cream-300">
                     <span className="w-5 h-5 rounded-full bg-burgundy-900 border border-cream-300/20 text-cream-200 text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
                       {pIdx + 1}
@@ -122,102 +283,48 @@ export const ProjectsDeck: React.FC = () => {
               </div>
             </div>
 
-          </div>
-
-          {/* Right Column: Device Window, Specs & Metrics (Col 5) */}
-          <div className="lg:col-span-5 space-y-6">
-            
-            {/* Device / Browser Window Mockup (Inspired by Reference 2 - Mariana & Reference 5 - UGC) */}
-            <div className="rounded-xl overflow-hidden bg-obsidian-950 border border-cream-300/20 shadow-2xl">
-              
-              {/* Window Title Bar */}
-              <div className="bg-obsidian-900 px-4 py-2.5 border-b border-cream-300/15 flex items-center justify-between text-xs font-sans text-cream-400">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-burgundy-700" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-burgundy-900" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-cream-400/40" />
-                  <span className="ml-2 text-[11px] text-cream-300 font-mono">
-                    {activeProject.id}.spec
+            {/* Metrics & Tool Arsenal */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+              {activeModalProject.metrics.map((m, mIdx) => (
+                <div key={mIdx} className="p-3.5 rounded-xl bg-obsidian-950 border border-cream-300/15 text-center">
+                  <span className="text-xl font-serif font-black text-cream-100 block">
+                    {m.value}
+                  </span>
+                  <span className="text-[10px] font-sans text-cream-400 block mt-0.5">
+                    {m.label}
                   </span>
                 </div>
-                <span className="text-[10px] text-cream-400 uppercase tracking-widest">
-                  CONFIDENTIAL
-                </span>
-              </div>
-
-              {/* Inside Window Content */}
-              <div className="p-5 space-y-4 font-sans text-xs">
-                
-                {/* Attack Vector / Specification Badge */}
-                <div>
-                  <span className="text-[10px] uppercase tracking-widest text-cream-400 block mb-1">
-                    PRIMARY VECTOR / VULNERABILITY TARGET:
-                  </span>
-                  <div className="p-2.5 rounded-lg bg-burgundy-950 border border-burgundy-800 text-cream-100 font-semibold text-xs">
-                    {activeProject.attackVectorOrSpec}
-                  </div>
-                </div>
-
-                {/* Verified Performance Metrics */}
-                <div>
-                  <span className="text-[10px] uppercase tracking-widest text-cream-400 block mb-2 font-semibold">
-                    BENCHMARK TELEMETRY & RESULTS:
-                  </span>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                    {activeProject.metrics.map((m, mIdx) => (
-                      <div key={mIdx} className="p-3 rounded-lg bg-obsidian-900 border border-cream-300/10 text-center">
-                        <span className="text-lg font-serif font-black text-cream-100 block">
-                          {m.value}
-                        </span>
-                        <span className="text-[10px] text-cream-400 block mt-0.5 leading-tight">
-                          {m.label}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Deployed Tools Matrix */}
-                <div>
-                  <span className="text-[10px] uppercase tracking-widest text-cream-400 block mb-2 font-semibold">
-                    DEPLOYED TECHNOLOGIES & LIBRARIES:
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {activeProject.toolsUsed.map((tool, tIdx) => (
-                      <span key={tIdx} className="px-2.5 py-1 rounded-md text-[11px] bg-burgundy-900/60 border border-cream-300/15 text-cream-200">
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-              </div>
-
+              ))}
             </div>
 
-            {/* Direct GitHub Code Repository Action Link */}
-            <div className="pt-2">
+            {/* Action Bar */}
+            <div className="pt-4 border-t border-cream-300/15 flex flex-wrap items-center justify-between gap-4">
+              <div className="flex flex-wrap gap-1.5">
+                {activeModalProject.toolsUsed.map((tool, tIdx) => (
+                  <span key={tIdx} className="px-2.5 py-1 rounded-md text-[11px] font-sans bg-burgundy-900/60 border border-cream-300/15 text-cream-200">
+                    {tool}
+                  </span>
+                ))}
+              </div>
+
               <a
-                href={activeProject.githubUrl}
+                href={activeModalProject.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => soundEngine.playClick()}
-                className="w-full py-3.5 px-6 rounded-full bg-burgundy-900/80 hover:bg-burgundy-800 border border-cream-300/30 hover:border-cream-300 text-cream-100 font-sans text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2 group shadow-md"
+                className="px-6 py-3 rounded-full bg-cream-100 hover:bg-cream-200 text-burgundy-950 font-sans font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-md"
               >
-                <GithubIcon className="w-4 h-4 text-cream-300 group-hover:scale-110 transition-transform" />
-                <span>INSPECT REPOSITORY ON GITHUB</span>
-                <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                <GithubIcon className="w-4 h-4" />
+                <span>INSPECT CODE ON GITHUB</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
-              <span className="block text-center text-[10px] font-sans text-cream-400 mt-2">
-                Open-source research & reproducible implementation scripts
-              </span>
             </div>
 
           </div>
 
         </div>
+      )}
 
-      </div>
     </section>
   );
 };
