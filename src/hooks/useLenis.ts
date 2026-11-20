@@ -7,12 +7,13 @@ export function useLenis() {
   useEffect(() => {
     // Luxury inertia smooth scroll engine (Jaspreet Singh & north.cloud aesthetic)
     const lenis = new Lenis({
-      duration: 1.15,
+      duration: 1.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      touchMultiplier: 1.2,
+      syncTouch: false, // Leave native touch scrolling untampered to prevent halfway scroll traps
+      autoResize: true,
     });
 
     lenisRef.current = lenis;
@@ -25,21 +26,15 @@ export function useLenis() {
     }
     rafId = requestAnimationFrame(raf);
 
-    // Track scroll velocity for kinetic skew effects
-    let skewTimeout: number | undefined;
-    lenis.on('scroll', (e: { velocity: number; progress: number; scroll: number }) => {
-      // Clamp velocity between -10 and 10 for subtle, tasteful fluid skew
-      const clampedVelocity = Math.max(-10, Math.min(10, e.velocity));
-      document.documentElement.style.setProperty('--scroll-velocity', `${clampedVelocity}`);
-      document.documentElement.style.setProperty('--scroll-progress', `${e.progress}`);
-      document.documentElement.style.setProperty('--scroll-y', `${e.scroll}px`);
-
-      // Reset velocity to 0 when scrolling stops
-      window.clearTimeout(skewTimeout);
-      skewTimeout = window.setTimeout(() => {
-        document.documentElement.style.setProperty('--scroll-velocity', '0');
-      }, 120);
+    // Keep Lenis dimensions updated on DOM content changes
+    const ro = new ResizeObserver(() => {
+      lenis.resize();
     });
+    ro.observe(document.body);
+
+    // Also recalculate after initial asset settling
+    const t1 = setTimeout(() => lenis.resize(), 500);
+    const t2 = setTimeout(() => lenis.resize(), 1500);
 
     // Intercept in-page hash links for silky Lenis scroll target jumps
     const handleAnchorClick = (e: MouseEvent) => {
@@ -50,7 +45,7 @@ export function useLenis() {
         const el = document.querySelector(href);
         if (el) {
           e.preventDefault();
-          lenis.scrollTo(el as HTMLElement, { offset: -30, duration: 1.2 });
+          lenis.scrollTo(el as HTMLElement, { offset: -30, duration: 1.1 });
         }
       }
     };
@@ -58,6 +53,9 @@ export function useLenis() {
 
     return () => {
       cancelAnimationFrame(rafId);
+      ro.disconnect();
+      clearTimeout(t1);
+      clearTimeout(t2);
       document.removeEventListener('click', handleAnchorClick);
       lenis.destroy();
       lenisRef.current = null;

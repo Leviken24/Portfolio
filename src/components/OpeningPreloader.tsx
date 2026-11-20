@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles } from 'lucide-react';
 import { soundEngine } from '../utils/audio';
 
 interface OpeningPreloaderProps {
@@ -11,29 +10,36 @@ export const OpeningPreloader: React.FC<OpeningPreloaderProps> = ({ onComplete }
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
+    let current = 0;
     const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(() => {
-            setIsExiting(true);
-            soundEngine.playChime();
-            setTimeout(onComplete, 800);
-          }, 300);
-          return 100;
+      const increment = Math.floor(Math.random() * 8) + 4;
+      current += increment;
+
+      if (current >= 100) {
+        current = 100;
+        setProgress(100);
+        clearInterval(interval);
+        setTimeout(() => {
+          setIsExiting(true);
+          soundEngine.playChime();
+          setTimeout(onComplete, 500);
+        }, 150);
+      } else {
+        setProgress(current);
+        if (current % 20 < 7) {
+          soundEngine.playPop(600 + current * 4);
         }
-        // Organic acceleration
-        const increment = Math.floor(Math.random() * 8) + 3;
-        const next = Math.min(prev + increment, 100);
-        if (next % 20 === 0) {
-          soundEngine.playPop(600 + next * 4);
-        }
-        return next;
-      });
-    }, 45);
+      }
+    }, 35);
 
     return () => clearInterval(interval);
   }, [onComplete]);
+
+  const handleSkip = () => {
+    setIsExiting(true);
+    soundEngine.playChime();
+    setTimeout(onComplete, 400);
+  };
 
   return (
     <div
@@ -51,7 +57,7 @@ export const OpeningPreloader: React.FC<OpeningPreloaderProps> = ({ onComplete }
           <span>H S SHREEJA // PORTFOLIO</span>
         </div>
         <div className="font-editorial italic text-cream-300">
-          Curated Technical Dossier © 2026
+          Curated Technical Works © 2026
         </div>
       </div>
 
@@ -88,12 +94,8 @@ export const OpeningPreloader: React.FC<OpeningPreloaderProps> = ({ onComplete }
         <div className="flex items-center justify-between text-[11px] font-sans text-cream-400">
           <span>CYBERSEC ✦ AI RED TEAM ✦ ROBOTICS ✦ CLOUD ✦ IOT</span>
           <button
-            onClick={() => {
-              setIsExiting(true);
-              soundEngine.playChime();
-              setTimeout(onComplete, 700);
-            }}
-            className="hover:text-cream-100 transition-colors uppercase tracking-widest text-[10px] underline underline-offset-4"
+            onClick={handleSkip}
+            className="hover:text-cream-100 transition-colors uppercase tracking-widest text-[10px] underline underline-offset-4 cursor-pointer"
           >
             SKIP INTRO →
           </button>

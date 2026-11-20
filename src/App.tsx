@@ -49,8 +49,8 @@ export function App() {
       {/* 03. Ghost nav — hidden at top, reveals on scroll */}
       <FloatingNav />
 
-      {/* Main Presentation with Kinetic Skew on Scroll */}
-      <main className="kinetic-skew">
+      {/* Main Presentation */}
+      <main className="relative">
         {/* 04. Monumental Editorial Hero */}
         <EditorialHero />
 
