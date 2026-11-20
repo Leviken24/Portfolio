@@ -106,8 +106,8 @@ export const EditorialHero: React.FC = () => {
 
             {/* MONUMENTAL NAME — staggered letter reveal */}
             <h1
-              className="font-serif font-black uppercase leading-none tracking-tight select-none"
-              style={{ fontSize: 'clamp(3.5rem, 10vw, 9rem)', lineHeight: 1 }}
+              className="font-serif font-black uppercase leading-none tracking-tight select-none whitespace-nowrap"
+              style={{ fontSize: 'clamp(2.4rem, 6.2vw, 6.8rem)', lineHeight: 1.05 }}
               aria-label="H S SHREEJA"
             >
               {NAME_LETTERS.map((letter, i) => (
